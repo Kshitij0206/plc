@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Support — Pleasure Communication{% endblock %}
+
+{% block extra_styles %}
+<style>
+    /* ── FAQ Section ── */
+    .faq-section {
+        margin-top: 48px;
+        padding-top: 32px;
+        border-top: 1px solid rgba(75, 91, 149, 0.25);
+    }
+
+    .faq-section h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #2e3a6e;
+        margin-bottom: 8px;
+    }
+
+    .faq-subtitle {
+        font-size: 14px;
+        color: #6b7aaa;
+        margin-bottom: 28px;
+    }
+
+    .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .faq-item {
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(75, 91, 149, 0.2);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .faq-question {
+        width: 100%;
+        background: none;
+        border: none;
+        text-align: left;
+        padding: 16px 20px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #2e3a6e;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        transition: background 0.15s;
+    }
+
+    .faq-question:hover {
+        background: rgba(75, 91, 149, 0.07);
+    }
+
+    .faq-question.open {
+        border-bottom: 1px solid rgba(75, 91, 149, 0.15);
+    }
+
+    .faq-chevron {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        transition: transform 0.25s ease;
+        color: #4B5B95;
+    }
+
+    .faq-question.open .faq-chevron {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        padding: 0 20px;
+        font-size: 14px;
+        color: #374166;
+        line-height: 1.75;
+    }
+
+    .faq-answer.open {
+        max-height: 300px;
+        padding: 14px 20px 18px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Pleasure Communication<br><span class="h2">International Courier Partner</span></h1>
+
+<section class="faq-section" id="faq">
+    <h2>Frequently asked questions</h2>
+    <p class="faq-subtitle">Everything you need to know about sending shipments abroad</p>
+
+    <div class="faq-list">
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                What documents do I need to send a parcel internationally?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+                You will typically need a commercial invoice, packing list, and a completed customs declaration form (CN22 or CN23 depending on value). Some countries may also require a certificate of origin or specific permits for regulated goods.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                What items are prohibited from international shipping?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+                Prohibited items commonly include flammable liquids, explosives, drugs, firearms, counterfeit goods, perishable food (without proper permits), and live animals. Restrictions vary by destination country — please contact us to confirm before shipping.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                How long does international shipping usually take?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+                Delivery times depend on the destination and service chosen. Express services typically deliver within 2–5 business days, while standard international shipping may take 7–21 business days. Customs clearance can occasionally add extra time.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                Who is responsible for customs duties and taxes?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+                Customs duties and import taxes are generally the responsibility of the recipient (consignee) unless a Delivery Duty Paid (DDP) arrangement is agreed upon. We recommend informing your recipient about potential charges before shipping.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                How should I pack my shipment for international delivery?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+                You do not need to do anything. Our firm will pack your package safely. You only need to hand over the product that is to be parcelled abroad.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                Can I track my international shipment?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+                Yes. All our international shipments come with a tracking number. You can monitor your parcel's journey from dispatch to delivery. Tracking updates may be less frequent once the parcel enters the destination country's postal network.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                What happens if my shipment is lost or damaged?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+                Please contact us directly at insuranceptl@gmail.com or call +91 94178 44000 and we will assist you promptly.
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function toggleFaq(btn) {
+        const answer = btn.nextElementSibling;
+        const isOpen = btn.classList.contains('open');
+        document.querySelectorAll('.faq-question.open').forEach(q => {
+            q.classList.remove('open');
+            q.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+            btn.classList.add('open');
+            answer.classList.add('open');
+        }
+    }
+</script>
+{% endblock %}

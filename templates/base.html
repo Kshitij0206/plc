@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pleasure Communication{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: conic-gradient(from 135deg, #FFFFFF, #4B5B95);
+            font-family: 'DM Sans', Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ── Floating logo ── */
+        .floating-logo {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            z-index: 999;
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 10px;
+            padding: 6px;
+        }
+
+        /* ── Layout ── */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width: 220px;
+            flex-shrink: 0;
+            background: #2e3a6e;
+            border-right: 1px solid #3d4d82;
+            padding: 24px 16px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #fff;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #3d4d82;
+            font-family: 'DM Serif Display', serif;
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 15px;
+            color: #c8d0f0;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* ── Main Content ── */
+        .content {
+            flex: 1;
+            padding: 40px 48px;
+            line-height: 1.8;
+            padding-top: 110px;
+        }
+
+        /* ── Hamburger (mobile) ── */
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 999;
+            background: #2e3a6e;
+            border: 1px solid #3d4d82;
+            color: white;
+            font-size: 20px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -240px;
+                top: 0;
+                height: 100vh;
+                z-index: 998;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .content {
+                padding: 60px 20px 20px;
+            }
+
+            .floating-logo {
+                width: 44px;
+                height: 44px;
+                top: 10px;
+                right: 12px;
+            }
+        }
+
+        /* ── Footer ── */
+        footer {
+            background-color: #4B5B95;
+        }
+
+        .footer-wrap {
+            padding: 2.5rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .footer-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #e6f1fb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            color: #185fa5;
+            border: 1px solid #d0e4f5;
+        }
+
+        .footer-name {
+            font-size: 18px;
+            color: #fff;
+            margin: 0 0 2px;
+        }
+
+        .footer-role {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .footer-email-link {
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            transition: background 0.15s;
+            font-weight: bold;
+        }
+
+        .footer-email-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+    </style>
+    {% block extra_styles %}{% endblock %}
+</head>
+<body>
+
+    <img src="{{ url_for('static', filename='plc_logo.png') }}" class="floating-logo" alt="PLC Logo">
+    <button class="hamburger" onclick="toggleSidebar()">&#9776;</button>
+
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">Pleasure Communication</div>
+            <nav>
+                <a href="{{ url_for('home') }}"    class="nav-link {% if request.endpoint == 'home' %}active{% endif %}">&#8962; Home</a>
+                <a href="{{ url_for('support') }}" class="nav-link {% if request.endpoint == 'support' %}active{% endif %}">&#9993; Support</a>
+                <a href="{{ url_for('contact') }}" class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}">&#8481; Contact</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <footer class="footer-wrap">
+        <div class="footer-brand">
+            <div class="footer-avatar">KG</div>
+            <div>
+                <p class="footer-name">Kunal Gupta</p>
+                <p class="footer-role">Owner</p>
+            </div>
+        </div>
+        <a href="mailto:insuranceptl@gmail.com" class="footer-email-link">insuranceptl@gmail.com</a>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function () {
+                document.getElementById('sidebar').classList.remove('open');
+            });
+        });
+    </script>
+    {% block extra_scripts %}{% endblock %}
+
+</body>
+</html>
